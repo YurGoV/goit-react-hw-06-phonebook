@@ -1,5 +1,5 @@
 import {configureStore} from '@reduxjs/toolkit';
-import {createAction, createReducer, createSlice} from '@reduxjs/toolkit';
+import {createSlice} from '@reduxjs/toolkit';
 
 const initialContacts = [{
   id: '1',
@@ -20,29 +20,21 @@ const contactsSlice = createSlice({name: 'contacts',
       return state.filter(item => item.id !== action.payload)
     },
 }
+});
+
+const filterSlice = createSlice({name: 'filter',
+  initialState: '',
+  reducers: {
+  setFilter(state, action) {return state = action.payload},
+  },
 })
 
-export const {addContact, delContact} = contactsSlice.actions
-
-// export const addContact = createAction('contact/add');
-// export const delContact = createAction('contact/del');
-export const setFilter = createAction('filter/set');
-
-// const contactsReducer = createReducer(initialContacts, {
-//   [addContact]: (state, action) => [...state, action.payload],
-//   [delContact]: (state, action) => state.filter(item => item.id !== action.payload),
-//
-// })
-
-const filterReducer = createReducer('', {
-  setFilter: (state, action) => state = action.payload,
-})
-
+export const {setFilter} = filterSlice.actions;
+export const {addContact, delContact} = contactsSlice.actions;
 
 export const store = configureStore({
   reducer: {
-    // contacts: contactsReducer,
     contacts: contactsSlice.reducer,
-    filter: filterReducer,
+    filter: filterSlice.reducer,
   },
 })
