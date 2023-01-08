@@ -10,7 +10,7 @@ import {addContact, delContact, setFilter} from "../redux/store";
 
 export const App = () => {
 
-  const contacts = useSelector(state => state.contacts);
+  const {contacts} = useSelector(state => state.contacts);
   const filter = useSelector(state => state.filter);
   console.log(typeof contacts);
   console.log(contacts);
@@ -19,6 +19,12 @@ export const App = () => {
   const dispatch = useDispatch();
 
   const handleAddContact = ({name, number}) => {
+    console.log(name, number);
+    // const isAlreadyInContacts = contacts.find(contact => contact.name === name);
+    // if (isAlreadyInContacts) {
+    //   return alert(`${name} is already in contacts`)
+    // }
+
     const id = nanoid();
     dispatch(addContact({
       id,
