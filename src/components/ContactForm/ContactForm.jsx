@@ -11,6 +11,7 @@ const formicInitialValues = {
 export const ContactForm = ({onSubmit}) => {
 
   const onFormicSubmit = (values, {resetForm}) => {
+    console.log(values);
     onSubmit(values);
     resetForm();
   }
