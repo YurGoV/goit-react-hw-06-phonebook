@@ -1,75 +1,59 @@
 import React from "react";
-// import {Formik, Form, Field} from 'formik';
-// import {Button, InputField} from "./ContactForm.styled";
-import PropTypes from "prop-types";
-import TextField from '@mui/material/TextField';
+import {useSelector, useDispatch} from "react-redux";
 import {useForm} from "react-hook-form";
-import Box from "@mui/material/Box";
-// import {Button} from "@mui/material";
-import {ButtonStyled, formStyles} from "./ContactForm.styled";
 import {toast} from "react-toastify";
+import {nanoid} from "nanoid";
+import {addContact} from "../../redux/contactsSlice";
+import {Button} from "@mui/material";
+import TextField from '@mui/material/TextField';
+import Box from "@mui/material/Box";
+import {buttonStyle, formStyles} from "./ContactForm.styled";
 
 
-
-
-
-
-
-export const ContactForm = ({onSubmit}) => {
-
+export const ContactForm = () => {
+  const {contacts} = useSelector(state => state.contacts);
   const {register, resetField, handleSubmit} = useForm();//todo: validation
+  const dispatch = useDispatch();
 
-/*
 
-  const onFormicSubmit = (values, {resetForm}) => {
-    console.log(values);
-    onSubmit(values);
-    resetForm();
-  }
-*/
-
-  const onFormSubmit = (values) => {
-    if (!values.name || !values.number) {
+  const onFormSubmit = ({name = '', number = ''}) => {
+    name = name.trim();
+    number = number.trim();
+    if (!name || !number) {
       return toast('Please input name & number of Contact');
     }
-    console.log(values);
-    values = {name: values.name.trim(), number: values.number.trim()}
-    console.log(values);
 
+    const isAlreadyInContacts = contacts.find(contact => contact.name === name);
+    if (isAlreadyInContacts) {
+      return toast(`${name} is already in contacts`);
+    }
 
-    onSubmit(values);
+    const id = nanoid();//adding new contact
+    dispatch(addContact({
+      id,
+      name,
+      number,
+    }))
+
     resetField('name');
     resetField('number');
-
-    // if (query && query.trim() !== '') {
-    //   const queryToUpdate = query.trim();
-    //   setSearchParams({query: queryToUpdate});
-    // } else {
-    //   setSearchParams({});
-    //   resetField("query");
-    //   toast('please input, what you want to find')
-    // }
   };
 
   return (
 
     <Box component='form' noValidate autoComplete="on" onSubmit={handleSubmit(onFormSubmit)} sx={formStyles}
     >
-        <TextField {...register("name")} label="Name" variant="standard"  size="small"  />
-        <TextField {...register("number")} label="Number" variant="standard"  size="small"  />
+      <TextField {...register("name")} label="Name" variant="standard" size="small"/>
+      <TextField {...register("number")} label="Number" variant="standard" size="small"/>
 
-      <ButtonStyled type="submit" variant="outlined" size="small" >
-             Add
-      </ButtonStyled>
+      <Button type="submit" variant="outlined" size="small" sx={buttonStyle}>
+        Add
+      </Button>
 
     </Box>
-
   );
-
 };
 
-ContactForm.propTypes = {
-  onSubmit: PropTypes.func.isRequired,
-}
+
 
 

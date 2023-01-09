@@ -1,75 +1,52 @@
 import React from "react";
-import {Contact, Title} from "./ContactsList.styled";
+import {useSelector} from "react-redux";
 import {ContactsEl} from "../ContactEl/ContactsEl";
-import PropTypes from "prop-types";
+import {contactsStyles, titleStyles} from "./ContactsList.styled";
+import Box from "@mui/material/Box";
+import {Typography} from "@mui/material";
 
 
+export const ContactsList = () => {
 
-export const ContactsList = ({data, filter, onDelete}) => {
+  const {contacts} = useSelector(state => state.contacts);
+  const filter = useSelector(state => state.filter);
 
   function filteredData() {
     if (filter.length > 0) {
-      return data.filter(el => el.name
+      return contacts.filter(el => el.name
         .toLowerCase()
         .includes(filter.toLowerCase()
           .trim()));
     }
-    return data;
+    return contacts;
   }
 
   if (filteredData().length > 0) {
     return (
-      <Contact>
-        <Title>Contacts</Title>
+      <Box sx={contactsStyles}>
+        <Typography component='h2' sx={titleStyles}>Contacts</Typography>
 
-        <ContactsEl data={filteredData()} onDelete={onDelete}></ContactsEl>
-      </Contact>
+        <ContactsEl data={filteredData()}></ContactsEl>
+      </Box>
     );
   }
 
   if (filteredData().length === 0 && !filter) {
     return (
-      <Contact>
-        <Title>The Phonebook is Empty</Title>
-      </Contact>
+      <Box sx={contactsStyles}>
+        <Typography component='h2' sx={titleStyles}>
+          The Phonebook is Empty</Typography>
+      </Box>
     );
   }
 
   return (
-    <Contact>
-      <Title>There are no contacts, matching you query (</Title>
-    </Contact>
+    <Box sx={contactsStyles}>
+      <Typography component='h2' sx={titleStyles}>
+        There are no contacts, matching you query (</Typography>
+    </Box>
   );
 };
 
-ContactsList.propTypes = {
-  data: PropTypes.array,
-  filter: PropTypes.string,
-  onDelete: PropTypes.func.isRequired,
-}
-
-/*
 
 
-<Grid item xs={12} md={6}>
-  <Typography sx={{ mt: 4, mb: 2 }} variant="h6" component="div">
-    Contacts
-  </Typography>
-  <Demo>
-    <List dense={dense}>
-      {generate(
-        <ListItem>
-          <ListItemIcon>
-            <FolderIcon />
-          </ListItemIcon>
-          <ListItemText
-            primary="Single-line item"
-            secondary={secondary ? 'Secondary text' : null}
-          />
-        </ListItem>,
-      )}
-    </List>
-  </Demo>
-</Grid>
-
-*/
