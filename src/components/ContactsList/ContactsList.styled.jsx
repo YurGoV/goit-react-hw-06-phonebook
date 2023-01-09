@@ -7,7 +7,7 @@ export const Contact = styled.div`
   font-size: 30px;
   color: #010101;
   padding: 5px 0;
-  max-width: 300px;
+  max-width: 350px;
   margin-right: auto;
 `;
 

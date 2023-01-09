@@ -1,14 +1,15 @@
 import styled from '@emotion/styled';
+import {Button} from "@mui/material";
 
-export const InputField = styled.label`
-  display: flex;
-  flex-direction: column;
-  font-size: 14px;
-  min-width: 50px;
-  max-width: 250px;
-`;
+export const formStyles = {
+  display: 'flex',
+  flexDirection: 'column',
+  fontSize: '14px',
+  minwidth: '50px',
+  maxWidth: '250px',
+};
 
-export const Button = styled.button`
+export const ButtonStyled = styled(Button)`
   background-color: white;
   display: flex;
   height: 30px;
@@ -16,13 +17,16 @@ export const Button = styled.button`
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  border: none;
   border-radius: 3px;
   font-size: 16px;
   margin-top: 10px;
+  border: 1px solid lightgrey;
+  color: darkgrey;
+
 
   &:hover {
-    border: 1px solid lightgreen;
+    //border: 1px solid black;
+    color: black;
   }
 `;
 
