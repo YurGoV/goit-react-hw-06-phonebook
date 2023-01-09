@@ -3,10 +3,13 @@ import {nanoid} from "nanoid";
 import {Filter} from "./Filter/Filter";
 import {ContactsList} from "./ContactsList/ContactsList";
 import {ContactForm} from "./ContactForm/ContactForm";
-// import {useLocalStorage} from "./hooks/useLocalStorage";
+import {toast, ToastContainer, Zoom} from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
 
 import {useSelector, useDispatch} from "react-redux";
-import {addContact, delContact, setFilter} from "../redux/store";
+import {addContact, delContact } from "../redux/contactsSlice";
+import {setFilter} from "../redux/filterSlice";
+
 
 export const App = () => {
 
@@ -20,10 +23,10 @@ export const App = () => {
 
   const handleAddContact = ({name, number}) => {
     console.log(name, number);
-    // const isAlreadyInContacts = contacts.find(contact => contact.name === name);
-    // if (isAlreadyInContacts) {
-    //   return alert(`${name} is already in contacts`)
-    // }
+    const isAlreadyInContacts = contacts.find(contact => contact.name === name);
+    if (isAlreadyInContacts) {
+      return toast(`${name} is already in contacts`);
+    }
 
     const id = nanoid();
     dispatch(addContact({
@@ -49,6 +52,14 @@ export const App = () => {
       <ContactForm onSubmit={handleAddContact}></ContactForm>
       <Filter onSearch={handleSearchContacts}></Filter>
       <ContactsList data={contacts} filter={filter} onDelete={deleteContact}></ContactsList>
+
+      <ToastContainer
+        autoClose={2000}
+        position="top-center"
+        theme="light"
+        transition={Zoom}
+      />
+
     </Section>
   );
 }
