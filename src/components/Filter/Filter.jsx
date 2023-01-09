@@ -1,21 +1,24 @@
 import React from "react";
-import {FilterStyled} from "./Filter.styled";
-import PropTypes from "prop-types";
+import {useDispatch} from "react-redux";
+import {setFilter} from "../../redux/filterSlice";
 import TextField from '@mui/material/TextField';
+import Box from "@mui/material/Box";
+import {filterStyles} from "./Filter.styled";
 
 
+export const Filter = () => {
+  const dispatch = useDispatch();
 
-export const Filter = ({onSearch}) => {
+  const handleSearch = (e) => {
+    dispatch(setFilter(e.currentTarget.value));
+  }
 
   return (
-    <FilterStyled>
-      <TextField label="Search"  onChange={onSearch} size="small" />
-    </FilterStyled>
+    <Box sx={filterStyles}>
+      <TextField onChange={handleSearch} label="Search" size="small"/>
+    </Box>
   )
-}
+};
 
-Filter.propTypes = {
-  onSearch: PropTypes.func.isRequired,
-}
 
 
