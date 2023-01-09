@@ -1,4 +1,4 @@
-import {Section, Title} from "./App.styled";
+import {Title} from "./App.styled";
 import {nanoid} from "nanoid";
 import {Filter} from "./Filter/Filter";
 import {ContactsList} from "./ContactsList/ContactsList";
@@ -9,6 +9,10 @@ import 'react-toastify/dist/ReactToastify.css';
 import {useSelector, useDispatch} from "react-redux";
 import {addContact, delContact } from "../redux/contactsSlice";
 import {setFilter} from "../redux/filterSlice";
+
+// import CssBaseline from '@mui/material/CssBaseline';
+// import Box from '@mui/material/Box';
+import Container from '@mui/material/Container';
 
 
 export const App = () => {
@@ -47,7 +51,7 @@ export const App = () => {
   }
 
   return (
-    <Section>
+    <Container maxWidth="sm">
       <Title>Phonebook</Title>
       <ContactForm onSubmit={handleAddContact}></ContactForm>
       <Filter onSearch={handleSearchContacts}></Filter>
@@ -60,7 +64,7 @@ export const App = () => {
         transition={Zoom}
       />
 
-    </Section>
+    </Container>
   );
 }
 

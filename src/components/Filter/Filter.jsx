@@ -1,21 +1,15 @@
 import React from "react";
-import {Field, FilterStyled} from "./Filter.styled";
+import {FilterStyled} from "./Filter.styled";
 import PropTypes from "prop-types";
+import TextField from '@mui/material/TextField';
+
 
 
 export const Filter = ({onSearch}) => {
 
   return (
     <FilterStyled>
-      <Field> Find contacts by name
-        <input
-          type="text"
-          name="filter"
-          pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
-          title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
-          onChange={onSearch}
-        />
-      </Field>
+      <TextField label="Search"  onChange={onSearch} size="small" />
     </FilterStyled>
   )
 }
@@ -23,3 +17,5 @@ export const Filter = ({onSearch}) => {
 Filter.propTypes = {
   onSearch: PropTypes.func.isRequired,
 }
+
+
