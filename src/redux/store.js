@@ -30,22 +30,22 @@ const persistConfig = {
 //     },];
 
 
-const initialContacts = {
-  contacts: [{
-    id: '1',
-    name: 'Test Contact 1',
-    number: '000-000-0000',
-  },
-    {
-      id: '2',
-      name: 'Test Contact 2',
-      number: '000-000-0001',
-    },]
-};
+// const initialContacts = {
+//   contacts: [{
+//     id: '1',
+//     name: 'Test Contact 1',
+//     number: '000-000-0000',
+//   },
+//     {
+//       id: '2',
+//       name: 'Test Contact 2',
+//       number: '000-000-0001',
+//     },]
+// };
 
 const contactsSlice = createSlice({
   name: 'contacts',
-  initialState: initialContacts,
+  initialState: {contacts: []},
   reducers: {
     addContact(state, action) {
       return {contacts: [...state.contacts, action.payload]}
