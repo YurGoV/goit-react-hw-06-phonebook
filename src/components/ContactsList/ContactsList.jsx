@@ -23,6 +23,15 @@ export const ContactsList = ({data, filter, onDelete}) => {
       </Contact>
     );
   }
+
+  if (filteredData().length === 0 && !filter) {
+    return (
+      <Contact>
+        <Title>The Phonebook is Empty</Title>
+      </Contact>
+    );
+  }
+
   return (
     <Contact>
       <Title>There are no contacts, matching you query (</Title>
